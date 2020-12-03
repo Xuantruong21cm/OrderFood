@@ -83,7 +83,7 @@ public class FogetPassword_Fragment extends Fragment {
                                     if (response != null) {
                                         PhoneAuthOptions options =
                                                 PhoneAuthOptions.newBuilder(FirebaseAuth.getInstance())
-                                                        .setPhoneNumber("+84975414741")       // Phone number to verify
+                                                        .setPhoneNumber("+84"+numberPhone.substring(1))       // Phone number to verify
                                                         .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
                                                         .setActivity(getActivity())                 // Activity (for callback binding)
                                                         .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
