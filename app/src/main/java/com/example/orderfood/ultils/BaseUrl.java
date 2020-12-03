@@ -5,4 +5,5 @@ public class BaseUrl {
     public static String login = "api/v1/login" ;
     public static String signUp = "api/v1/signin" ;
     public static String comparisonPhone ="api/v1/comparisonPhone" ;
+    public static String forgotPasswordById = "api/v1/forgotPasswordById" ;
 }

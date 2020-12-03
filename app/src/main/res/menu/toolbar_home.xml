@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/search_homefragment"
-        android:icon="@drawable/search_homefragment"
+        android:icon="@drawable/ic_baseline_search_24"
         android:title=""
         app:showAsAction="always" />
     <item
         android:id="@+id/control_homefragment"
-        android:icon="@drawable/control_homefragment"
+        android:icon="@drawable/ic_baseline_tune_24"
         android:title=""
         app:showAsAction="always" />
 </menu>

@@ -24,4 +24,27 @@
     <string name="Send">Gửi</string>
     <string name="phoneEmpty">Số Điện Thoại Chưa Được Đăng Ký</string>
     <string name="menu">Menu</string>
+    <string name="all">Tất Cả</string>
+    <string name="drink">Đồ Uống</string>
+    <string name="Grilled">Nướng</string>
+    <string name="HotPot">Lẩu</string>
+    <string name="Appetizer">Khai Vị</string>
+    <string name="erroPhone">Lỗi Xác Thực</string>
+    <string name="pleaseWait">Vui Lòng Chờ</string>
+    <string name="pleaseWait2">Đang Xác Thực Số Điện Thoại</string>
+    <string name="otp_authentication">Xác Thực OTP</string>
+    <string name="otp_text">Vui Lòng Nhập Mã OTP 6 Chữ Số</string>
+    <string name="otp_text2">Bạn Vừa Nhận Được</string>
+    <string name="authen">Xác Nhận</string>
+    <string name="authen2">Đang Xác Thực OTP</string>
+    <string name="exitOTP">Hủy Xác Thực OTP</string>
+    <string name="messOTP">Bạn Có Muốn Hủy Xác Thực OTP</string>
+    <string name="alertOTP">OTP phải là 6 chữ số !!!</string>
+    <string name="OTP_number">Mã OTP</string>
+    <string name="changePass">Đổi Mật Khẩu</string>
+    <string name="newPass">Mật Khẩu Mới</string>
+    <string name="cancelPass">Hủy Thao Tác</string>
+    <string name="cancelNewPass">Bạn Có Muốn Hủy Bỏ Thao Tác Này ?</string>
+    <string name="newPassOK">Thay Đổi Mật Khẩu Thành Công</string>
+    <string name="newPassErro">Lỗi. Vui Lòng Thử Lại</string>
 </resources>
