@@ -3,39 +3,112 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:padding="@dimen/_2sdp"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    android:padding="@dimen/_2sdp"
+    android:id="@+id/layout_login"
+    tools:context=".activities.LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="10">
+        android:weightSum="12">
 
         <ImageView
-            android:scaleType="fitXY"
-            android:src="@drawable/logo_login"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4" />
+            android:layout_weight="5"
+            android:scaleType="fitXY"
+            android:src="@drawable/logo_login" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="@string/welcome"
             android:gravity="center"
+            android:text="@string/welcome"
+            android:textColor="#000000"
             android:textSize="@dimen/_18sdp"
-            android:textStyle="bold"
-            android:textColor="#000000"/>
+            android:textStyle="bold" />
 
         <EditText
-            android:layout_marginTop="@dimen/_60sdp"
-            android:hint="@string/email"
-            android:layout_weight="1"
+            android:id="@+id/edt_numberPhone_login"
             android:layout_width="match_parent"
-            android:layout_height="0dp"/>
+            android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_weight="1"
+            android:background="@drawable/custom_editext_login"
+            android:hint="@string/numberPhone"
+            android:paddingLeft="@dimen/_8sdp" />
+
+        <EditText
+            android:id="@+id/edt_password_login"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_weight="1"
+            android:background="@drawable/custom_editext_login"
+            android:hint="@string/password"
+            android:paddingLeft="@dimen/_8sdp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:orientation="vertical"
+            android:weightSum="3">
+
+            <TextView
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:layout_weight="1"
+                android:background="@drawable/custom_click_login"
+                android:gravity="center"
+                android:text="@string/login"
+                android:textColor="#fff"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_forgotPassword"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/forgotpassword"
+                android:textColor="#3A3939"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold" />
+
+            <TextView
+
+                android:textColor="#3A3939"
+                android:textStyle="bold"
+                android:textSize="@dimen/_14sdp"
+                android:gravity="center"
+                tools:text="Bạn chưa có tài khoản? Đăng ký"
+                android:id="@+id/tv_signUp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
     </LinearLayout>
+
+    <ProgressBar
+        android:visibility="invisible"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress_Login"/>
 
 </FrameLayout>

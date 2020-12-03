@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:onClick="noClick"
+    tools:context=".fragments.SignUp_Fragment"
+    tools:ignore="OnClick">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_signUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/createAcc"
+            android:textColor="#333333"
+            android:textSize="@dimen/_24sdp"
+            android:textStyle="bold" />
+
+
+        <EditText
+            android:id="@+id/edt_userName_SignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_42sdp"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:background="@drawable/custom_editext_login"
+            android:hint="@string/userName"
+            android:paddingLeft="@dimen/_8sdp"
+            android:textSize="@dimen/_18sdp"
+            tools:text="Xuân Trường" />
+
+
+        <EditText
+            android:id="@+id/edt_numberPhone_SignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:background="@drawable/custom_editext_login"
+            android:hint="@string/numberPhone"
+            android:paddingLeft="@dimen/_8sdp"
+            android:textSize="@dimen/_18sdp"
+            tools:text="0975414741" />
+
+
+        <EditText
+            android:id="@+id/edt_password_SignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:background="@drawable/custom_editext_login"
+            android:hint="@string/password"
+            android:paddingLeft="@dimen/_8sdp"
+            android:textSize="@dimen/_18sdp"
+            tools:text="Xuantruong21cm" />
+
+        <TextView
+            android:textColor="#fff"
+            android:id="@+id/btn_signUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_50sdp"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:background="@drawable/custom_click_login"
+            android:gravity="center"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_10sdp"
+            android:text="@string/signUp"
+            android:textSize="@dimen/_20sdp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:visibility="invisible"
+        android:id="@+id/progress_signUp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</FrameLayout>

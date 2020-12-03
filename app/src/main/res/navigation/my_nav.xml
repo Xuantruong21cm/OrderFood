@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/homeMenu_Fragment">
+
+    <fragment
+        android:id="@+id/homeMenu_Fragment"
+        android:name="com.example.orderfood.HomeMenu_Fragment"
+        android:label="fragment_home_menu_"
+        tools:layout="@layout/fragment_home_menu_" />
+    <fragment
+        android:id="@+id/listTable_Fragment"
+        android:name="com.example.orderfood.ListTable_Fragment"
+        android:label="fragment_list_table_"
+        tools:layout="@layout/fragment_list_table_" />
+    <fragment
+        android:id="@+id/listOrder_Fragment"
+        android:name="com.example.orderfood.ListOrder_Fragment"
+        android:label="fragment_list_order_"
+        tools:layout="@layout/fragment_list_order_" />
+    <fragment
+        android:id="@+id/notification_Fragment"
+        android:name="com.example.orderfood.Notification_Fragment"
+        android:label="fragment_notification_"
+        tools:layout="@layout/fragment_notification_" />
+    <fragment
+        android:id="@+id/user_Fragment"
+        android:name="com.example.orderfood.User_Fragment"
+        android:label="fragment_user_"
+        tools:layout="@layout/fragment_user_" />
+</navigation>
