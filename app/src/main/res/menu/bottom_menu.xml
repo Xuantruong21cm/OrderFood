@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Item" />
-    <item android:title="Item" />
-    <item android:title="Item" />
+    <item
+        android:id="@+id/homeMenu_Fragment"
+        android:icon="@drawable/home"
+        android:title="" />
+    <item
+        android:id="@+id/listTable_Fragment"
+        android:icon="@drawable/table"
+        android:title="" />
+    <item
+        android:id="@+id/listOrder_Fragment"
+        android:icon="@drawable/shopping_cart"
+        android:title="" />
+    <item
+        android:id="@+id/notification_Fragment"
+        android:icon="@drawable/bell"
+        android:title="" />
+    <item
+        android:id="@+id/user_Fragment"
+        android:icon="@drawable/user"
+        android:title="" />
 </menu>

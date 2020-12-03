@@ -32,6 +32,7 @@
             android:textStyle="bold" />
 
         <EditText
+            android:text="0975414741"
             android:id="@+id/edt_numberPhone_login"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -44,6 +45,7 @@
             android:paddingLeft="@dimen/_8sdp" />
 
         <EditText
+            android:text="Xuantruong21"
             android:id="@+id/edt_password_login"
             android:layout_width="match_parent"
             android:layout_height="0dp"
