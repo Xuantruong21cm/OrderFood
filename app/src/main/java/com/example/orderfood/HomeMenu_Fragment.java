@@ -32,7 +32,7 @@ public class HomeMenu_Fragment extends Fragment {
         initUI(view);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar) ;
         setHasOptionsMenu(true);
-        adapter = new HomeViewPagerAdapter(getActivity().getSupportFragmentManager(),1);
+        adapter = new HomeViewPagerAdapter(getChildFragmentManager(),1);
         viewPager.setAdapter(adapter) ;
         tabLayout.setupWithViewPager(viewPager) ;
         ViewGroup tabs = (ViewGroup) tabLayout.getChildAt(0);

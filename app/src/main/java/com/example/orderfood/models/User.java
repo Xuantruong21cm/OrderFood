@@ -10,12 +10,12 @@ public class User {
     public String token ;
 
     @SerializedName("permission")
-    public String permission ;
+    public int permission ;
 
     @SerializedName("username")
     public String username ;
 
-    public User(String msg, String token, String permission, String username) {
+    public User(String msg, String token, int permission, String username) {
         this.msg = msg;
         this.token = token;
         this.permission = permission;
@@ -38,11 +38,11 @@ public class User {
         this.token = token;
     }
 
-    public String getPermission() {
+    public int getPermission() {
         return permission;
     }
 
-    public void setPermission(String permission) {
+    public void setPermission(int permission) {
         this.permission = permission;
     }
 

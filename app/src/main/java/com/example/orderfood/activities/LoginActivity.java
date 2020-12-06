@@ -56,6 +56,9 @@ public class LoginActivity extends AppCompatActivity {
     TextView btn_login,tv_signUp,tv_forgotPassword ;
     EditText edt_numberPhone_login, edt_password_login ;
     ProgressBar progress_Login ;
+    public static String token = "" ;
+    public static int permission  ;
+    public static String username = "" ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,6 +121,10 @@ public class LoginActivity extends AppCompatActivity {
                                 @Override
                                 public void onResponse(User response) {
                                     if (response != null){
+                                         token = response.getToken() ;
+                                         permission = response.getPermission() ;
+                                         username = response.getUsername() ;
+                                        Log.d("test", "onCreateViewLogin: "+ token);
                                         progress_Login.setVisibility(View.GONE);
                                         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                                         startActivity(intent);
@@ -174,4 +181,11 @@ public class LoginActivity extends AppCompatActivity {
     public void noClick(View view) {
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        token = "" ;
+        permission = 0 ;
+        username = "" ;
+    }
 }

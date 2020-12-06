@@ -1,64 +1,140 @@
 package com.example.orderfood;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ListTable_Fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONArrayRequestListener;
+import com.androidnetworking.interfaces.ParsedRequestListener;
+import com.example.orderfood.activities.LoginActivity;
+import com.example.orderfood.adapter.ListTable_Adapter;
+import com.example.orderfood.models.Hour;
+import com.example.orderfood.models.Table;
+import com.example.orderfood.ultils.BaseUrl;
+
+import org.json.JSONArray;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+
 public class ListTable_Fragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ListTable_Fragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ListTable_Fragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ListTable_Fragment newInstance(String param1, String param2) {
-        ListTable_Fragment fragment = new ListTable_Fragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
+    TextView spinner_hour_listTable, spinner_day_listTable ;
+    RecyclerView recyclerView_listTable ;
+    ListTable_Adapter adapter ;
+    Dialog dialog ;
+    List<String> listTime ;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list_table_, container, false);
+        View view = inflater.inflate(R.layout.fragment_list_table_, container, false);
+        initUI(view);
+        getData();
+        return view ;
+    }
+    private void initUI(View view){
+        spinner_day_listTable = view.findViewById(R.id.spinner_day_listTable) ;
+        spinner_hour_listTable = view.findViewById(R.id.spinner_hour_listTable) ;
+        recyclerView_listTable = view.findViewById(R.id.recyclerView_listTable) ;
+        listTime = new ArrayList<>();
+    }
+    private void getData(){
+        OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request request = chain.request().newBuilder()
+                        .addHeader("Authorization","Bearer "+ LoginActivity.token).build() ;
+                return chain.proceed(request);
+            }
+        }).build() ;
+        AndroidNetworking.initialize(getActivity().getApplicationContext(),okHttpClient);
+        AndroidNetworking.get(BaseUrl.baseUrl+BaseUrl.table)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsObjectList(Table.class, new ParsedRequestListener<List<Table>>(){
+                    @Override
+                    public void onResponse(List<Table> response) {
+                        adapter = new ListTable_Adapter(response,getContext());
+                        recyclerView_listTable.setLayoutManager(new GridLayoutManager(getContext(),2));
+                        recyclerView_listTable.setHasFixedSize(true);
+                        recyclerView_listTable.setAdapter(adapter) ;
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+
+                    }
+                });
+
+        AndroidNetworking.get(BaseUrl.baseUrl+BaseUrl.time)
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsObjectList(Hour.class, new ParsedRequestListener<ArrayList<Hour>>(){
+
+                    @Override
+                    public void onResponse(ArrayList<Hour> response) {
+
+                        spinner_hour_listTable.setText(response.get(0).getStartingTime() + " - "+response.get(0).getEndTime());
+                        spinner_hour_listTable.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                listTime.clear();
+                                dialog = new Dialog(getActivity());
+                                dialog.setContentView(R.layout.dialog_spinner_time);
+                                dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,1500);
+                                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                                dialog.getWindow().setGravity(Gravity.CENTER);
+                                for (int i = 0 ; i < response.size() ; i++){
+                                    listTime.add(response.get(i).getStartingTime() + " - "+response.get(i).getEndTime()) ;
+                                }
+
+                                ListView listView = dialog.findViewById(R.id.listView_Spinner) ;
+                                final ArrayAdapter<String> adapter =new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1,listTime) ;
+                                listView.setAdapter(adapter);
+                                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                        spinner_hour_listTable.setText(adapter.getItem(i));
+                                        Log.d("idTime", "onItemClick: "+response.get(i).get_id());
+                                        dialog.dismiss();
+                                    }
+                                });
+                                dialog.show();
+                            }
+                        });
+
+
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+
+                    }
+                });
     }
 }

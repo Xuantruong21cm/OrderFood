@@ -11,12 +11,12 @@ import android.view.ViewGroup;
 import com.example.orderfood.R;
 
 
-public class Grilled_Fragment extends Fragment {
+public class Dessert_Fragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_grilled_, container, false);
+        return inflater.inflate(R.layout.fragment_dessert, container, false);
     }
 }

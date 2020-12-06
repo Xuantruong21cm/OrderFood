@@ -47,4 +47,7 @@
     <string name="cancelNewPass">Bạn Có Muốn Hủy Bỏ Thao Tác Này ?</string>
     <string name="newPassOK">Thay Đổi Mật Khẩu Thành Công</string>
     <string name="newPassErro">Lỗi. Vui Lòng Thử Lại</string>
+    <string name="day">Ngày</string>
+    <string name="hour">Giờ</string>
+    <string name="order">Đặt</string>
 </resources>

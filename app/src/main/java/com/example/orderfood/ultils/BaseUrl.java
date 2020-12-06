@@ -6,4 +6,6 @@ public class BaseUrl {
     public static String signUp = "api/v1/signin" ;
     public static String comparisonPhone ="api/v1/comparisonPhone" ;
     public static String forgotPasswordById = "api/v1/forgotPasswordById" ;
+    public static String table = "api/v1/table" ;
+    public static String time ="api/v1/time" ;
 }

@@ -2,13 +2,21 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#fff"
+    android:onClick="noClick"
     android:layout_height="match_parent"
-    tools:context=".fragments.viewpagerHomeFragment.AllMenu_Fragment">
+    tools:context=".fragments.viewpagerHomeFragment.AllMenu_Fragment"
+    tools:ignore="OnClick">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_allMenu"
+            android:layout_width="match_parent"
+            tools:listitem="@layout/item_food"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
 </FrameLayout>
