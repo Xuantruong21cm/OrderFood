@@ -84,23 +84,6 @@ public class SignUp_Fragment extends Fragment {
                                 }
                             });
 
-//                Retrofit retrofit = RetrofitSetup.getInstance() ;
-//                RetrofitService retrofitService =retrofit.create(RetrofitService.class);
-//                retrofitService.signUp(numberPhone,password,username,permission).enqueue(new Callback<msg>() {
-//                    @Override
-//                    public void onResponse(Call<msg> call, Response<msg> response) {
-//                        progressBar.setVisibility(View.GONE);
-//                        if (response != null){
-//                            Log.d("retro", "onResponse: "+response.body().getMsg());
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<msg> call, Throwable t) {
-//                        progressBar.setVisibility(View.GONE);
-//                        Log.d("retro", "onResponse: "+t.toString());
-//                    }
-//                });
                 }
             }
         });

@@ -22,6 +22,7 @@ import com.example.orderfood.ListTable_Fragment;
 import com.example.orderfood.Notification_Fragment;
 import com.example.orderfood.R;
 import com.example.orderfood.User_Fragment;
+import com.example.orderfood.models.ListDish;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -29,9 +30,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
-    NavHostController navController;
+    public static List<ListDish> listDishes ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +77,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void initUI() {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
+        if (listDishes != null){
+
+        }else {
+            listDishes = new ArrayList<>() ;
+        }
     }
 
     public void noClick(View view) {

@@ -30,6 +30,7 @@ import com.example.orderfood.adapter.ListTable_Adapter;
 import com.example.orderfood.models.Hour;
 import com.example.orderfood.models.Table;
 import com.example.orderfood.ultils.BaseUrl;
+import com.example.orderfood.ultils.RequestSetup;
 
 import org.json.JSONArray;
 
@@ -42,47 +43,44 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static com.example.orderfood.ultils.RequestSetup.okHttpClient;
+
 
 public class ListTable_Fragment extends Fragment {
-    TextView spinner_hour_listTable, spinner_day_listTable ;
-    RecyclerView recyclerView_listTable ;
-    ListTable_Adapter adapter ;
-    Dialog dialog ;
-    List<String> listTime ;
+    TextView spinner_hour_listTable, spinner_day_listTable;
+    RecyclerView recyclerView_listTable;
+    ListTable_Adapter adapter;
+    Dialog dialog;
+    List<String> listTime;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_table_, container, false);
         initUI(view);
         getData();
-        return view ;
+        return view;
     }
-    private void initUI(View view){
-        spinner_day_listTable = view.findViewById(R.id.spinner_day_listTable) ;
-        spinner_hour_listTable = view.findViewById(R.id.spinner_hour_listTable) ;
-        recyclerView_listTable = view.findViewById(R.id.recyclerView_listTable) ;
+
+    private void initUI(View view) {
+        spinner_day_listTable = view.findViewById(R.id.spinner_day_listTable);
+        spinner_hour_listTable = view.findViewById(R.id.spinner_hour_listTable);
+        recyclerView_listTable = view.findViewById(R.id.recyclerView_listTable);
         listTime = new ArrayList<>();
     }
-    private void getData(){
-        OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request().newBuilder()
-                        .addHeader("Authorization","Bearer "+ LoginActivity.token).build() ;
-                return chain.proceed(request);
-            }
-        }).build() ;
-        AndroidNetworking.initialize(getActivity().getApplicationContext(),okHttpClient);
-        AndroidNetworking.get(BaseUrl.baseUrl+BaseUrl.table)
+
+    private void getData() {
+        AndroidNetworking.initialize(getActivity().getApplicationContext(), okHttpClient);
+        AndroidNetworking.get(BaseUrl.baseUrl + BaseUrl.table)
                 .setPriority(Priority.MEDIUM)
                 .build()
-                .getAsObjectList(Table.class, new ParsedRequestListener<List<Table>>(){
+                .getAsObjectList(Table.class, new ParsedRequestListener<List<Table>>() {
                     @Override
                     public void onResponse(List<Table> response) {
-                        adapter = new ListTable_Adapter(response,getContext());
-                        recyclerView_listTable.setLayoutManager(new GridLayoutManager(getContext(),2));
+                        adapter = new ListTable_Adapter(response, getContext());
+                        recyclerView_listTable.setLayoutManager(new GridLayoutManager(getContext(), 2));
                         recyclerView_listTable.setHasFixedSize(true);
-                        recyclerView_listTable.setAdapter(adapter) ;
+                        recyclerView_listTable.setAdapter(adapter);
                     }
 
                     @Override
@@ -91,44 +89,42 @@ public class ListTable_Fragment extends Fragment {
                     }
                 });
 
-        AndroidNetworking.get(BaseUrl.baseUrl+BaseUrl.time)
+        AndroidNetworking.get(BaseUrl.baseUrl + BaseUrl.time)
                 .setPriority(Priority.HIGH)
                 .build()
-                .getAsObjectList(Hour.class, new ParsedRequestListener<ArrayList<Hour>>(){
+                .getAsObjectList(Hour.class, new ParsedRequestListener<ArrayList<Hour>>() {
 
                     @Override
                     public void onResponse(ArrayList<Hour> response) {
 
-                        spinner_hour_listTable.setText(response.get(0).getStartingTime() + " - "+response.get(0).getEndTime());
+                        spinner_hour_listTable.setText(response.get(0).getStartingTime() + " - " + response.get(0).getEndTime());
                         spinner_hour_listTable.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 listTime.clear();
                                 dialog = new Dialog(getActivity());
                                 dialog.setContentView(R.layout.dialog_spinner_time);
-                                dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,1500);
+                                dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, 1500);
                                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                                 dialog.getWindow().setGravity(Gravity.CENTER);
-                                for (int i = 0 ; i < response.size() ; i++){
-                                    listTime.add(response.get(i).getStartingTime() + " - "+response.get(i).getEndTime()) ;
+                                for (int i = 0; i < response.size(); i++) {
+                                    listTime.add(response.get(i).getStartingTime() + " - " + response.get(i).getEndTime());
                                 }
 
-                                ListView listView = dialog.findViewById(R.id.listView_Spinner) ;
-                                final ArrayAdapter<String> adapter =new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1,listTime) ;
+                                ListView listView = dialog.findViewById(R.id.listView_Spinner);
+                                final ArrayAdapter<String> adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, listTime);
                                 listView.setAdapter(adapter);
                                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                                         spinner_hour_listTable.setText(adapter.getItem(i));
-                                        Log.d("idTime", "onItemClick: "+response.get(i).get_id());
+                                        Log.d("idTime", "onItemClick: " + response.get(i).get_id());
                                         dialog.dismiss();
                                     }
                                 });
                                 dialog.show();
                             }
                         });
-
-
                     }
 
                     @Override

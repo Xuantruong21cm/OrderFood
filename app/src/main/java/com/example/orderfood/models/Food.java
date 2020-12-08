@@ -1,23 +1,23 @@
-package com.example.orderfood.model;
+package com.example.orderfood.models;
 
 public class Food {
     public String _id ;
     public String nameDish ;
     public String price ;
     public int time ;
-    public int kalo ;
-    public int weigh ;
+    public int calories ;
+    public int weight ;
     public String ingredient ;
     public String imageDish ;
     public String category ;
 
-    public Food(String _id, String nameDish, String price, int time, int kalo, int weigh, String ingredient, String imageDish, String category) {
+    public Food(String _id, String nameDish, String price, int time, int calories, int weight, String ingredient, String imageDish, String category) {
         this._id = _id;
         this.nameDish = nameDish;
         this.price = price;
         this.time = time;
-        this.kalo = kalo;
-        this.weigh = weigh;
+        this.calories = calories;
+        this.weight = weight;
         this.ingredient = ingredient;
         this.imageDish = imageDish;
         this.category = category;
@@ -55,20 +55,20 @@ public class Food {
         this.time = time;
     }
 
-    public int getKalo() {
-        return kalo;
+    public int getCalories() {
+        return calories;
     }
 
-    public void setKalo(int kalo) {
-        this.kalo = kalo;
+    public void setCalories(int calories) {
+        this.calories = calories;
     }
 
-    public int getWeigh() {
-        return weigh;
+    public int getWeight() {
+        return weight;
     }
 
-    public void setWeigh(int weigh) {
-        this.weigh = weigh;
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 
     public String getIngredient() {

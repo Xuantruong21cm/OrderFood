@@ -7,11 +7,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -19,7 +17,6 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -28,29 +25,12 @@ import android.widget.Toast;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.androidnetworking.interfaces.ParsedRequestListener;
 import com.example.orderfood.R;
 import com.example.orderfood.fragments.FogetPassword_Fragment;
 import com.example.orderfood.fragments.SignUp_Fragment;
 import com.example.orderfood.models.User;
 import com.example.orderfood.ultils.BaseUrl;
-import com.example.orderfood.ultils.RetrofitService;
-import com.example.orderfood.ultils.RetrofitSetup;
-
-import org.json.JSONObject;
-
-import java.io.IOException;
-
-import okhttp3.Authenticator;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Route;
-import okhttp3.internal.http.HttpHeaders;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class LoginActivity extends AppCompatActivity {
     TextView btn_login,tv_signUp,tv_forgotPassword ;
@@ -59,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     public static String token = "" ;
     public static int permission  ;
     public static String username = "" ;
+    public static String id = "" ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,27 +71,6 @@ public class LoginActivity extends AppCompatActivity {
                     progress_Login.setVisibility(View.GONE);
                     Toast.makeText(LoginActivity.this,R.string.Empty,Toast.LENGTH_SHORT).show();
                 }else {
-//                    Retrofit retrofit = RetrofitSetup.getInstance();
-//                    RetrofitService retrofitService = retrofit.create(RetrofitService.class);
-//                    retrofitService.login(phone,password).enqueue(new Callback<User>() {
-//                        @Override
-//                        public void onResponse(Call<User> call, Response<User> response) {
-//                            if (response.body() != null){
-//                                Log.d("test", "onResponse: "+response.body().getMsg());
-//                                if (response.body().getMsg() != null){
-//                                    Log.d("test", "onResponse: "+response.body().getToken());
-//                                    Log.d("test", "onResponse: "+response.body().getUsername());
-//                                    Log.d("test", "onResponse: "+response.body().getPermission());
-//                                }
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onFailure(Call<User> call, Throwable t) {
-//                            Log.d("test", "erro: "+t.toString());
-//                        }
-//                    });
-
 
                     AndroidNetworking.post(BaseUrl.baseUrl+BaseUrl.login)
                             .addUrlEncodeFormBodyParameter("phone",phone)
@@ -121,10 +81,11 @@ public class LoginActivity extends AppCompatActivity {
                                 @Override
                                 public void onResponse(User response) {
                                     if (response != null){
+                                        id = response.getId() ;
                                          token = response.getToken() ;
                                          permission = response.getPermission() ;
                                          username = response.getUsername() ;
-                                        Log.d("test", "onCreateViewLogin: "+ token);
+                                        Log.d("test", "onCreateViewLogin: "+ id);
                                         progress_Login.setVisibility(View.GONE);
                                         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                                         startActivity(intent);

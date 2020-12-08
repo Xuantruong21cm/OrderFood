@@ -1,18 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="#fff"
     android:onClick="noClick"
-    android:layout_height="match_parent"
     tools:context=".ListOrder_Fragment"
     tools:ignore="OnClick">
-
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:visibility="invisible"
+        android:id="@+id/tv_empty_listorder"
+        android:textColor="#2196F3"
+        android:textSize="@dimen/_32sdp"
+        android:textStyle="bold"
         android:gravity="center"
+        android:text="@string/emptyListOrder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="List Oder" />
+        android:orientation="vertical">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_listOder"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_38sdp"
+            android:background="#FF7B01"
+            app:title="Danh Sách Đã Chọn"
+            app:titleTextColor="@color/white" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            tools:listitem="@layout/item_list_order"
+            android:id="@+id/recyclerView_listOrder"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_marginBottom="@dimen/_4sdp"
+            android:id="@+id/img_add_ListOder"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_gravity="right"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:src="@drawable/ic_add_24" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_38sdp"
+            android:background="#fff"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/tv_costDish_listOrder"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                tools:text="Tổng Tiền: 249000 đ"
+                android:textColor="#000000"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/btn_submit_listOrder"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Đặt Món"
+                android:background="#FF7B01"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+    <ProgressBar
+        android:visibility="visible"
+        android:id="@+id/progress_listOrder"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </FrameLayout>

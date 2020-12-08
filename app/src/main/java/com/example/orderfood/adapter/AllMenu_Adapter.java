@@ -1,14 +1,6 @@
 package com.example.orderfood.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
-import android.graphics.RectF;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,20 +8,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.transition.Transition;
+import com.example.orderfood.FoodOnClick;
 import com.example.orderfood.R;
-import com.example.orderfood.model.Food;
+import com.example.orderfood.models.Food;
 
 import java.util.List;
 
 public class AllMenu_Adapter extends RecyclerView.Adapter<AllMenu_Adapter.ViewHolder>{
     Context context ;
     List<Food> list ;
+    FoodOnClick onClick ;
+    public void FoodOnClick(FoodOnClick onClick) {
+        this.onClick = onClick ;
+    }
 
     public AllMenu_Adapter(Context context, List<Food> list) {
         this.context = context;
@@ -50,6 +44,12 @@ public class AllMenu_Adapter extends RecyclerView.Adapter<AllMenu_Adapter.ViewHo
         holder.tv_nameDish.setText(food.getNameDish());
         holder.tv_time.setText(food.getTime() + " phút");
         holder.tv_price.setText(food.getPrice() + " đ");
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClick.onClick(food);
+            }
+        });
     }
 
     @Override

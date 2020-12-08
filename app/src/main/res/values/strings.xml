@@ -50,4 +50,7 @@
     <string name="day">Ngày</string>
     <string name="hour">Giờ</string>
     <string name="order">Đặt</string>
+    <string name="minCount">Số Lượng Sản Phẩm Tối Thiểu Là 1</string>
+    <string name="addish">Thêm Thành Công</string>
+    <string name="emptyListOrder">Giỏ Hàng Trống</string>
 </resources>

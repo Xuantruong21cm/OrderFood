@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="orange">#FF7B01</color>
     <color name="defaultColor">#000000</color>
+    <color name="trans">#00000000</color>
 </resources>

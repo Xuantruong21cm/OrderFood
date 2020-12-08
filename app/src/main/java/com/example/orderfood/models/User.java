@@ -3,6 +3,9 @@ package com.example.orderfood.models;
 import com.google.gson.annotations.SerializedName;
 
 public class User {
+    @SerializedName("id")
+    String id ;
+
     @SerializedName("msg")
     public String msg ;
 
@@ -15,11 +18,20 @@ public class User {
     @SerializedName("username")
     public String username ;
 
-    public User(String msg, String token, int permission, String username) {
+    public User(String id, String msg, String token, int permission, String username) {
+        this.id = id ;
         this.msg = msg;
         this.token = token;
         this.permission = permission;
         this.username = username;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getMsg() {
