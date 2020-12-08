@@ -23,7 +23,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.ParsedRequestListener;
 import com.bumptech.glide.Glide;
-import com.example.orderfood.FoodOnClick;
+import com.example.orderfood.interfaces.FoodOnClick;
 import com.example.orderfood.R;
 import com.example.orderfood.activities.MainActivity;
 import com.example.orderfood.adapter.AllMenu_Adapter;

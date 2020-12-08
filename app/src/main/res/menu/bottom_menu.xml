@@ -6,10 +6,6 @@
         android:icon="@drawable/home"
         android:title="" />
     <item
-        android:id="@+id/listTable_Fragment"
-        android:icon="@drawable/table"
-        android:title="" />
-    <item
         android:id="@+id/listOrder_Fragment"
         android:icon="@drawable/shopping_cart"
         android:title="" />

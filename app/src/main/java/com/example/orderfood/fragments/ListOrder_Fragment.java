@@ -1,4 +1,4 @@
-package com.example.orderfood;
+package com.example.orderfood.fragments;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -30,6 +30,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.ParsedRequestListener;
 import com.androidnetworking.interfaces.StringRequestListener;
+import com.example.orderfood.R;
 import com.example.orderfood.activities.LoginActivity;
 import com.example.orderfood.activities.MainActivity;
 import com.example.orderfood.adapter.ListOrder_Adapter;

@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.orderfood.FoodOnClick;
+import com.example.orderfood.interfaces.FoodOnClick;
 import com.example.orderfood.R;
 import com.example.orderfood.models.Food;
 

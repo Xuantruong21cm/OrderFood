@@ -3,32 +3,18 @@ package com.example.orderfood.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.NavHostController;
-import androidx.navigation.Navigation;
-import androidx.navigation.fragment.FragmentNavigator;
-import androidx.navigation.fragment.NavHostFragment;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.asynccoroutines.AsyncCoroutines;
-import com.example.orderfood.HomeMenu_Fragment;
-import com.example.orderfood.ListOrder_Fragment;
-import com.example.orderfood.ListTable_Fragment;
-import com.example.orderfood.Notification_Fragment;
+import com.example.orderfood.fragments.HomeMenu_Fragment;
+import com.example.orderfood.fragments.ListOrder_Fragment;
+import com.example.orderfood.fragments.Notification_Fragment;
 import com.example.orderfood.R;
-import com.example.orderfood.User_Fragment;
+import com.example.orderfood.fragments.User_Fragment;
 import com.example.orderfood.models.ListDish;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,9 +38,6 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.homeMenu_Fragment:
                     selectedFragment = new HomeMenu_Fragment();
-                    break;
-                case R.id.listTable_Fragment:
-                    selectedFragment = new ListTable_Fragment();
                     break;
                 case R.id.listOrder_Fragment:
                     selectedFragment = new ListOrder_Fragment();

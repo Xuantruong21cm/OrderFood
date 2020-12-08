@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:onClick="noClick"
     android:background="#fff"
-    tools:context=".Notification_Fragment"
+    tools:context=".fragments.Notification_Fragment"
     tools:ignore="OnClick">
 
     <!-- TODO: Update blank fragment layout -->

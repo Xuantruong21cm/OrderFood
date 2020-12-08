@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#fff"
     android:onClick="noClick"
-    tools:context=".ListOrder_Fragment"
+    tools:context=".fragments.ListOrder_Fragment"
     tools:ignore="OnClick">
     <TextView
         android:visibility="invisible"
