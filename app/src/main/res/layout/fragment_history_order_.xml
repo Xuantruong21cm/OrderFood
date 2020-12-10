@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_historyOrder"
+            app:title="Đơn Hàng"
+            app:titleTextColor="@color/white"
+            android:background="#FF7B01"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_38sdp"/>
+        <com.google.android.material.tabs.TabLayout
+            app:tabBackground="@drawable/tab_color_selector"
+            app:tabMode="scrollable"
+            android:id="@+id/tablayout_historyOrder"
+            app:tabIndicator="@null"
+            app:tabRippleColor="@null"
+            app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+            app:tabTextColor="@color/defaultColor"
+            app:tabSelectedTextColor="@color/white"
+            android:layout_width="match_parent"
+            app:tabPaddingEnd="@dimen/_15sdp"
+            app:tabPaddingStart="@dimen/_15sdp"
+            android:layout_height="wrap_content"/>
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpager_HistoryOrder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+</FrameLayout>

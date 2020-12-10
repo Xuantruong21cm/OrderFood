@@ -6,17 +6,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.orderfood.R;
 import com.example.orderfood.adapter.HomeViewPagerAdapter;
+import com.example.orderfood.fragments.viewpagerHistoryOrder.HistoryOrder_Fragment;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -56,6 +60,19 @@ public class HomeMenu_Fragment extends Fragment {
         menu.clear();
         inflater.inflate(R.menu.toolbar_home,menu);
         return;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+           case  R.id.control_homefragment :
+               FragmentManager fragmentManager = getActivity().getSupportFragmentManager() ;
+               FragmentTransaction transaction = fragmentManager.beginTransaction() ;
+               Fragment fragment = new HistoryOrder_Fragment() ;
+               transaction.replace(R.id.fragment,fragment).commit() ;
+               transaction.addToBackStack(fragment.getClass().getSimpleName()) ;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void initUI(View view) {

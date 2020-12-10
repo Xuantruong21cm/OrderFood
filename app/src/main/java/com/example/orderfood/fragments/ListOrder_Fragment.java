@@ -141,21 +141,24 @@ public class ListOrder_Fragment extends Fragment {
                                     Toast.makeText(getContext(),"Số Người Tối Thiểu Phải Là 1",Toast.LENGTH_SHORT).show();
                                 }else {
                                     progress_listOrder.setVisibility(View.VISIBLE);
-                                    String idTime = id.get(i) ;
+                                    String Time = listTime.get(i) ;
                                     JSONArray jsonArray = new JSONArray();
                                     for (int j = 0; j < MainActivity.listDishes.size() ; j++) {
                                         JSONObject jsonObject = new JSONObject();
                                         try {
-                                            jsonObject.put("dishid",MainActivity.listDishes.get(i).getDishid());
-                                            jsonObject.put("amount",MainActivity.listDishes.get(i).getCount()) ;
+                                            jsonObject.put("imageDish",MainActivity.listDishes.get(j).getImageDish());
+                                            jsonObject.put("nameDish",MainActivity.listDishes.get(j).getNameDish());
+                                            jsonObject.put("amount",MainActivity.listDishes.get(j).getCount()) ;
                                         }catch (Exception e){}
                                         jsonArray.put(jsonObject) ;
                                     }
                                     AndroidNetworking.post(BaseUrl.baseUrl+BaseUrl.bookDish)
                                             .addUrlEncodeFormBodyParameter("iduser", LoginActivity.id)
-                                            .addUrlEncodeFormBodyParameter("idtime",idTime)
+                                            .addUrlEncodeFormBodyParameter("time",Time)
                                             .addUrlEncodeFormBodyParameter("people",number)
                                             .addUrlEncodeFormBodyParameter("listdist",jsonArray.toString())
+                                            .addUrlEncodeFormBodyParameter("money",String.valueOf(cost))
+                                            .addUrlEncodeFormBodyParameter("status","1")
                                             .setPriority(Priority.HIGH)
                                             .build()
                                             .getAsString(new StringRequestListener() {

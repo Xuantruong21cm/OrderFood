@@ -10,4 +10,5 @@ public class BaseUrl {
     public static String time ="api/v1/time" ;
     public static String dish = "api/v1/dish" ;
     public static String bookDish = "api/v1/bookDish" ;
+    public static String bookById = "api/v1/bookById" ;
 }
