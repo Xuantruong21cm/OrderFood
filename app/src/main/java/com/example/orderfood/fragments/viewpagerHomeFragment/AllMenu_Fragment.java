@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +22,10 @@ import android.widget.Toast;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.ParsedRequestListener;
 import com.bumptech.glide.Glide;
+import com.example.orderfood.activities.LoginActivity;
 import com.example.orderfood.interfaces.FoodOnClick;
 import com.example.orderfood.R;
 import com.example.orderfood.activities.MainActivity;
@@ -33,6 +36,10 @@ import com.example.orderfood.ultils.BaseUrl;
 import com.example.orderfood.ultils.RequestSetup;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +57,7 @@ public class AllMenu_Fragment extends Fragment {
             tv_weight_bottomsheet, tv_ingredient_bottomsheet, btn_add_bottomsheet;
     int count = 0 ;
     int cost =0;
+    public static List<JSONObject> history_waits ;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,6 +67,7 @@ public class AllMenu_Fragment extends Fragment {
         list = new ArrayList<>();
         progress_allmenu.setVisibility(View.VISIBLE);
         getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        getHistory();
         getData();
 
         return view;
@@ -70,7 +79,6 @@ public class AllMenu_Fragment extends Fragment {
                 .setPriority(Priority.HIGH)
                 .build()
                 .getAsObjectList(Food.class, new ParsedRequestListener<List<Food>>() {
-
                     @Override
                     public void onResponse(List<Food> foodList) {
                         recyclerView_AllMenu.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -206,5 +214,32 @@ public class AllMenu_Fragment extends Fragment {
         tv_time_bottomsheet = dialog.findViewById(R.id.tv_time_bottomsheet);
         tv_total_bottomsheet = dialog.findViewById(R.id.tv_total_bottomsheet);
         tv_weight_bottomsheet = dialog.findViewById(R.id.tv_weight_bottomsheet);
+    }
+    public void getHistory(){
+        AndroidNetworking.post(BaseUrl.baseUrl+BaseUrl.allBookById)
+                .addUrlEncodeFormBodyParameter("id", LoginActivity.id)
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsJSONArray(new JSONArrayRequestListener() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        history_waits = new ArrayList<>();
+                        JSONObject jsonObject = new JSONObject();
+                        for (int i = 0; i <response.length() ; i++) {
+                            try {
+                                jsonObject = response.getJSONObject(i);
+                                history_waits.add(jsonObject);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        Log.d("lll", "onResponse: "+history_waits.get(0).toString());
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+
+                    }
+                });
     }
 }

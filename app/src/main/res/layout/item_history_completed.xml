@@ -31,7 +31,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tv_count_dishes"
+            android:id="@+id/tv_count_dishes_completed"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -51,7 +51,7 @@
         android:weightSum="2">
 
         <TextView
-            android:id="@+id/tv_time_orderhistory"
+            android:id="@+id/tv_time_orderhistory_completed"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -63,7 +63,7 @@
             tools:text="9h - 11h" />
 
         <TextView
-            android:id="@+id/tv_cost_orderhistory"
+            android:id="@+id/tv_cost_orderhistory_completed"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -76,7 +76,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/btn_details_order"
+        android:id="@+id/btn_rate_order"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -85,7 +85,7 @@
         android:layout_weight="1"
         android:background="@drawable/custom_click_login"
         android:gravity="center"
-        android:text="Chi Tiết"
+        android:text="Đánh Giá"
         android:textColor="#FFFFFF"
         android:textSize="@dimen/_14sdp"
         android:textStyle="bold" />

@@ -8,6 +8,15 @@
     tools:context=".fragments.viewpagerHistoryOrder.CompletedFragment"
     tools:ignore="OnClick">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_history_completed"
+            tools:listitem="@layout/item_history_completed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
 
 </FrameLayout>

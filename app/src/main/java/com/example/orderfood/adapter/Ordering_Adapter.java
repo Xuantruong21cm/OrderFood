@@ -45,13 +45,13 @@ public class Ordering_Adapter extends RecyclerView.Adapter<Ordering_Adapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv_count_dishes, tv_time_orderhistory,
-                tv_cost_orderhistory, btn_cancel_order;
+                tv_cost_orderhistory, btn_details_order;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_count_dishes = itemView.findViewById(R.id.tv_count_dishes) ;
             tv_time_orderhistory = itemView.findViewById(R.id.tv_time_orderhistory) ;
             tv_cost_orderhistory = itemView.findViewById(R.id.tv_cost_orderhistory) ;
-            btn_cancel_order = itemView.findViewById(R.id.btn_cancel_order) ;
+            btn_details_order = itemView.findViewById(R.id.btn_details_order) ;
         }
     }
 }
