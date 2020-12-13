@@ -12,4 +12,6 @@ public class BaseUrl {
     public static String bookDish = "api/v1/bookDish" ;
     public static String bookById = "api/v1/bookById" ;
     public static String allBookById = "api/v1/allBookById" ;
+    public static String notification = "api/v1/notification" ;
+    public static String dishByCategory = "api/v1/dishByCategory" ;
 }

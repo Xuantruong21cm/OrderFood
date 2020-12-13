@@ -7,7 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".fragments.viewpagerHomeFragment.Appetizer_Fragment"
     tools:ignore="OnClick">
-
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_appetizer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
 
 </FrameLayout>

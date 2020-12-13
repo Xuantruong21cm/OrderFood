@@ -3,16 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:onClick="noClick"
     android:background="#fff"
     tools:context=".fragments.Notification_Fragment"
     tools:ignore="OnClick">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:gravity="center"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Notification" />
+        android:layout_height="match_parent">
+        <androidx.appcompat.widget.Toolbar
+            app:title="Thông Báo"
+            app:titleTextColor="@color/white"
+            android:background="#FF7B01"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_38sdp"/>
+        <androidx.recyclerview.widget.RecyclerView
+            tools:listitem="@layout/item_notification"
+            android:id="@+id/recyclerView_notification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
 </FrameLayout>
