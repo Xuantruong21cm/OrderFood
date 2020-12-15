@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.orderfood.R;
+import com.example.orderfood.interfaces.Detail_Order;
 import com.example.orderfood.models.History_Wait;
 
 import java.util.List;
@@ -17,6 +18,11 @@ import java.util.List;
 public class Ordering_Adapter extends RecyclerView.Adapter<Ordering_Adapter.ViewHolder>{
     List<History_Wait> list ;
     Context context ;
+    Detail_Order onClick ;
+
+    public void Details_OnClick(Detail_Order onClick){
+        this.onClick = onClick ;
+    }
 
     public Ordering_Adapter(List<History_Wait> list, Context context) {
         this.list = list;
@@ -36,6 +42,12 @@ public class Ordering_Adapter extends RecyclerView.Adapter<Ordering_Adapter.View
         holder.tv_count_dishes.setText(String.valueOf(list.get(position).getDish().size()));
         holder.tv_cost_orderhistory.setText(String.valueOf(history_wait.getMoney())+ " đ");
         holder.tv_time_orderhistory.setText(history_wait.getTime());
+        holder.btn_details_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClick.onClick_Details(position);
+            }
+        });
     }
 
     @Override

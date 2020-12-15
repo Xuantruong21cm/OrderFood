@@ -262,7 +262,7 @@ public class AllMenu_Fragment extends Fragment {
         tv_total_bottomsheet = dialog.findViewById(R.id.tv_total_bottomsheet);
         tv_weight_bottomsheet = dialog.findViewById(R.id.tv_weight_bottomsheet);
     }
-    public void getHistory(){
+    public static void getHistory(){
         AndroidNetworking.post(BaseUrl.baseUrl+BaseUrl.allBookById)
                 .addUrlEncodeFormBodyParameter("id", LoginActivity.id)
                 .setPriority(Priority.LOW)
@@ -270,16 +270,19 @@ public class AllMenu_Fragment extends Fragment {
                 .getAsJSONArray(new JSONArrayRequestListener() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        JSONObject jsonObject = new JSONObject();
-                        for (int i = 0; i <response.length() ; i++) {
-                            try {
-                                jsonObject = response.getJSONObject(i);
-                                history_waits.add(jsonObject);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                        Log.d("response", "onResponse: "+response.toString());
+                        if (response != null){
+                            JSONObject jsonObject = new JSONObject();
+                            for (int i = 0; i <response.length() ; i++) {
+                                try {
+                                    jsonObject = response.getJSONObject(i);
+                                    history_waits.add(jsonObject);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
+//                            Log.d("lll", "onResponse: "+history_waits.get(0).toString());
                         }
-                        Log.d("lll", "onResponse: "+history_waits.get(0).toString());
                     }
 
                     @Override

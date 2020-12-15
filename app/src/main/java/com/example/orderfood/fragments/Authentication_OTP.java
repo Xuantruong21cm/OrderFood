@@ -64,8 +64,7 @@ public class Authentication_OTP extends Fragment {
                     getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     if (keyOTP != null) {
                         PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(
-                                keyOTP, code
-                        );
+                                keyOTP, code);
                         FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential)
                                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                     @Override

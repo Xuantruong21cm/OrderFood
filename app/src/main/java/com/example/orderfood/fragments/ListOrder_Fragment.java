@@ -34,6 +34,7 @@ import com.example.orderfood.R;
 import com.example.orderfood.activities.LoginActivity;
 import com.example.orderfood.activities.MainActivity;
 import com.example.orderfood.adapter.ListOrder_Adapter;
+import com.example.orderfood.fragments.viewpagerHomeFragment.AllMenu_Fragment;
 import com.example.orderfood.models.Hour;
 import com.example.orderfood.ultils.BaseUrl;
 import com.example.orderfood.ultils.RequestSetup;
@@ -170,6 +171,7 @@ public class ListOrder_Fragment extends Fragment {
                                                     Intent intent = new Intent(getContext(),MainActivity.class);
                                                     startActivity(intent);
                                                     people.dismiss();
+                                                    AllMenu_Fragment.getHistory();
                                                     Toast.makeText(getContext(),"Đặt Bàn Thành Công",Toast.LENGTH_SHORT).show();
                                                 }
 

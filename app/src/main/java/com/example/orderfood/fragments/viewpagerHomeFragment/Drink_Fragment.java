@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,58 +42,65 @@ import java.util.List;
 
 
 public class Drink_Fragment extends Fragment {
-    RecyclerView recyclerView_drink ;
-    public static List<Food> list ;
-    AllMenu_Adapter adapter ;
-    Food food ;
+    RecyclerView recyclerView_drink;
+    public static List<Food> list;
+    AllMenu_Adapter adapter;
+    Food food;
     TextView btn_Minus_bottomsheet, tv_Amount_bottomsheet, btn_Plus_bottomsheet,
             tv_price_bottomsheet, tv_total_bottomsheet, tv_time_bottomsheet, tv_kalo_bottomsheet,
             tv_weight_bottomsheet, tv_ingredient_bottomsheet, btn_add_bottomsheet;
     ImageView img_imageDish_bottomsheet;
-    BottomSheetDialog bottomSheetDialog ;
-    int count = 0 ;
-    int cost =0;
+    BottomSheetDialog bottomSheetDialog;
+    int count = 0;
+    int cost = 0;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_drink, container, false);
-        recyclerView_drink = view.findViewById(R.id.recyclerView_drink) ;
+        View view = inflater.inflate(R.layout.fragment_drink, container, false);
+        recyclerView_drink = view.findViewById(R.id.recyclerView_drink);
         AndroidNetworking.initialize(getActivity().getApplicationContext(), RequestSetup.okHttpClient);
-        if (list != null){
-            if (list.size() <= 0){
+        if (list != null) {
+            if (list.size() <= 0) {
                 getData();
                 initRecyclerView();
-            }else {
+            } else {
                 initRecyclerView();
             }
-        }else {
-            list = new ArrayList<>() ;
+        } else {
+            list = new ArrayList<>();
             getData();
             initRecyclerView();
         }
-        return view ;
+        return view;
     }
 
-    private void getData(){
-        AndroidNetworking.post(BaseUrl.baseUrl+BaseUrl.dishByCategory)
-                .addUrlEncodeFormBodyParameter("idCategory","5fcff75e60b83a00175a5fd3")
+    private void getData() {
+        AndroidNetworking.post(BaseUrl.baseUrl + BaseUrl.dishByCategory)
+                .addUrlEncodeFormBodyParameter("idCategory", "5fcff75e60b83a00175a5fd3")
                 .setPriority(Priority.HIGH)
                 .build()
                 .getAsJSONArray(new JSONArrayRequestListener() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        Gson gson = new Gson() ;
-                        for (int i = 0; i <response.length() ; i++) {
+                        Gson gson = new Gson();
+                        for (int i = 0; i < response.length(); i++) {
                             try {
-                                food = gson.fromJson(response.getJSONObject(i).toString(),Food.class) ;
-                                list.add(food) ;
+                                food = gson.fromJson(response.getJSONObject(i).toString(), Food.class);
+                                list.add(food);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
-                        adapter = new AllMenu_Adapter(getContext(),list);
+                        adapter = new AllMenu_Adapter(getContext(), list);
                         recyclerView_drink.setLayoutManager(new LinearLayoutManager(getContext()));
                         recyclerView_drink.setHasFixedSize(true);
-                        recyclerView_drink.setAdapter(adapter) ;
+                        recyclerView_drink.setAdapter(adapter);
+                        adapter.FoodOnClick(new FoodOnClick() {
+                            @Override
+                            public void onClick(Food food) {
+                                onClickListener(food);
+                            }
+                        });
                     }
 
                     @Override
@@ -101,118 +109,123 @@ public class Drink_Fragment extends Fragment {
                     }
                 });
     }
-    private void initRecyclerView(){
-        adapter = new AllMenu_Adapter(getContext(),list);
+
+    private void initRecyclerView() {
+        adapter = new AllMenu_Adapter(getContext(), list);
         recyclerView_drink.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView_drink.setHasFixedSize(true);
-        recyclerView_drink.setAdapter(adapter) ;
+        recyclerView_drink.setAdapter(adapter);
         adapter.FoodOnClick(new FoodOnClick() {
             @Override
             public void onClick(Food food) {
-                bottomSheetDialog = new BottomSheetDialog(getActivity());
-                View view = View.inflate(getContext(), R.layout.bottom_dish_info, null);
-                bottomSheetDialog.setContentView(view);
-                CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) ((View) view.getParent()).getLayoutParams();
-                CoordinatorLayout.Behavior behavior = params.getBehavior();
-                if (behavior != null && behavior instanceof BottomSheetBehavior) {
-                    ((BottomSheetBehavior) behavior).setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-                        @Override
-                        public void onStateChanged(@NonNull View bottomSheet, int newState) {
-
-                        }
-
-                        @Override
-                        public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-
-                        }
-                    });
-                }
-                View parent = (View) view.getParent();
-                parent.setFitsSystemWindows(true);
-                BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(parent);
-                view.measure(0, 0);
-                DisplayMetrics displayMetrics = new DisplayMetrics();
-                getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-                int screenHeight = displayMetrics.heightPixels;
-                bottomSheetBehavior.setPeekHeight(screenHeight);
-                if (params.getBehavior() instanceof BottomSheetBehavior) {
-                    ((BottomSheetBehavior) params.getBehavior()).setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-                        @Override
-                        public void onStateChanged(@NonNull View bottomSheet, int newState) {
-
-                        }
-
-                        @Override
-                        public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-
-                        }
-                    });
-                }
-
-                params.height = screenHeight;
-                parent.setLayoutParams(params);
-                bottomSheetView(bottomSheetDialog);
-                cost = count * Integer.valueOf(food.getPrice()) ;
-                Glide.with(getContext()).load(food.getImageDish()).into(img_imageDish_bottomsheet);
-                tv_price_bottomsheet.setText(food.getPrice() + " đ");
-                tv_time_bottomsheet.setText(food.getTime() + " phút");
-                tv_kalo_bottomsheet.setText(food.getCalories() + "kalo");
-                tv_weight_bottomsheet.setText(food.getWeight() + " gr");
-                tv_ingredient_bottomsheet.setText("Thành Phần : " + food.getIngredient());
-                tv_total_bottomsheet.setText(String.valueOf(cost) + " đ");
-                tv_Amount_bottomsheet.setText(String.valueOf(count));
-                btn_Minus_bottomsheet.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (count < 1 ){
-                            count = 0 ;
-                            cost = count * Integer.valueOf(food.getPrice()) ;
-                            tv_Amount_bottomsheet.setText(String.valueOf(count));
-                            tv_total_bottomsheet.setText(String.valueOf(cost) + " đ");
-                        }else {
-                            count -- ;
-                            cost = count * Integer.valueOf(food.getPrice()) ;
-                            tv_Amount_bottomsheet.setText(String.valueOf(count));
-                            tv_total_bottomsheet.setText(String.valueOf(cost) + " đ");
-                        }
-                    }
-                });
-                btn_Plus_bottomsheet.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (count >= 10 ){
-                            count = 10 ;
-                            cost = count * Integer.valueOf(food.getPrice()) ;
-                            tv_Amount_bottomsheet.setText(String.valueOf(count));
-                            tv_total_bottomsheet.setText(String.valueOf(cost) + " đ");
-                        }else {
-                            count ++ ;
-                            cost = count * Integer.valueOf(food.getPrice()) ;
-                            tv_Amount_bottomsheet.setText(String.valueOf(count));
-                            tv_total_bottomsheet.setText(String.valueOf(cost) + " đ");
-                        }
-                    }
-                });
-
-                btn_add_bottomsheet.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (count <= 0){
-                            Toast.makeText(getContext(),R.string.minCount,Toast.LENGTH_SHORT).show();
-                        }else {
-                            MainActivity.listDishes.add(new ListDish(food.getNameDish(),food.get_id(),count,cost,food.getPrice(),food.getImageDish()));
-                            Toast.makeText(getContext(),R.string.addish,Toast.LENGTH_SHORT).show();
-                            count = 0 ;
-                            bottomSheetDialog.dismiss();
-                        }
-                    }
-                });
-
-                bottomSheetDialog.show();
-
+                onClickListener(food);
             }
         });
     }
+    private void onClickListener(Food food){
+        bottomSheetDialog = new BottomSheetDialog(getActivity());
+        View view = View.inflate(getContext(), R.layout.bottom_dish_info, null);
+        bottomSheetDialog.setContentView(view);
+        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) ((View) view.getParent()).getLayoutParams();
+        CoordinatorLayout.Behavior behavior = params.getBehavior();
+        if (behavior != null && behavior instanceof BottomSheetBehavior) {
+            ((BottomSheetBehavior) behavior).setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+                @Override
+                public void onStateChanged(@NonNull View bottomSheet, int newState) {
+
+                }
+
+                @Override
+                public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+                }
+            });
+        }
+        View parent = (View) view.getParent();
+        parent.setFitsSystemWindows(true);
+        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(parent);
+        view.measure(0, 0);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int screenHeight = displayMetrics.heightPixels;
+        bottomSheetBehavior.setPeekHeight(screenHeight);
+        if (params.getBehavior() instanceof BottomSheetBehavior) {
+            ((BottomSheetBehavior) params.getBehavior()).setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+                @Override
+                public void onStateChanged(@NonNull View bottomSheet, int newState) {
+
+                }
+
+                @Override
+                public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+                }
+            });
+        }
+
+        params.height = screenHeight;
+        parent.setLayoutParams(params);
+        bottomSheetView(bottomSheetDialog);
+        cost = count * Integer.valueOf(food.getPrice());
+        Glide.with(getContext().getApplicationContext()).load(food.getImageDish()).into(img_imageDish_bottomsheet);
+        Log.d("imageda", "onClick: " + food.getImageDish());
+        tv_price_bottomsheet.setText(food.getPrice() + " đ");
+        tv_time_bottomsheet.setText(food.getTime() + " phút");
+        tv_kalo_bottomsheet.setText(food.getCalories() + "kalo");
+        tv_weight_bottomsheet.setText(food.getWeight() + " gr");
+        tv_ingredient_bottomsheet.setText("Thành Phần : " + food.getIngredient());
+        tv_total_bottomsheet.setText(String.valueOf(cost) + " đ");
+        tv_Amount_bottomsheet.setText(String.valueOf(count));
+        btn_Minus_bottomsheet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (count < 1) {
+                    count = 0;
+                    cost = count * Integer.valueOf(food.getPrice());
+                    tv_Amount_bottomsheet.setText(String.valueOf(count));
+                    tv_total_bottomsheet.setText(String.valueOf(cost) + " đ");
+                } else {
+                    count--;
+                    cost = count * Integer.valueOf(food.getPrice());
+                    tv_Amount_bottomsheet.setText(String.valueOf(count));
+                    tv_total_bottomsheet.setText(String.valueOf(cost) + " đ");
+                }
+            }
+        });
+        btn_Plus_bottomsheet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (count >= 10) {
+                    count = 10;
+                    cost = count * Integer.valueOf(food.getPrice());
+                    tv_Amount_bottomsheet.setText(String.valueOf(count));
+                    tv_total_bottomsheet.setText(String.valueOf(cost) + " đ");
+                } else {
+                    count++;
+                    cost = count * Integer.valueOf(food.getPrice());
+                    tv_Amount_bottomsheet.setText(String.valueOf(count));
+                    tv_total_bottomsheet.setText(String.valueOf(cost) + " đ");
+                }
+            }
+        });
+
+        btn_add_bottomsheet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (count <= 0) {
+                    Toast.makeText(getContext(), R.string.minCount, Toast.LENGTH_SHORT).show();
+                } else {
+                    MainActivity.listDishes.add(new ListDish(food.getNameDish(), food.get_id(), count, cost, food.getPrice(), food.getImageDish()));
+                    Toast.makeText(getContext(), R.string.addish, Toast.LENGTH_SHORT).show();
+                    count = 0;
+                    bottomSheetDialog.dismiss();
+                }
+            }
+        });
+
+        bottomSheetDialog.show();
+    }
+
     private void bottomSheetView(BottomSheetDialog dialog) {
         img_imageDish_bottomsheet = dialog.findViewById(R.id.img_imageDish_bottomsheet);
         btn_Minus_bottomsheet = dialog.findViewById(R.id.btn_Minus_bottomsheet);
