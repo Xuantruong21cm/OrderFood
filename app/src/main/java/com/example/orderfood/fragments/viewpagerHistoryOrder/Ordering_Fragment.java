@@ -77,14 +77,6 @@ public class Ordering_Fragment extends Fragment {
                 fragment.setArguments(bundle);
                 transaction.replace(R.id.fragment,fragment).commit() ;
                 transaction.addToBackStack(fragment.getClass().getSimpleName()) ;
-
-                for (int j = 0; j < list.get(position).getDish().size(); j++) {
-                    Log.d("okokok", "onClick_Details: " + list.get(position).getDish().get(j).getAmount());
-                    Log.d("okokok", "onClick_Details: " + list.get(position).getDish().get(j).getNameDish());
-                    Log.d("okokok", "onClick_Details: " + list.get(position).getDish().get(j).getImageDish());
-                    Log.d("okokok", "onClick_Details: " + list.get(position).getDish().get(j).get_id());
-
-                }
             }
         });
     }

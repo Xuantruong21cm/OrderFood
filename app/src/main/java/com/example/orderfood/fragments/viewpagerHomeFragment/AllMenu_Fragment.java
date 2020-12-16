@@ -281,7 +281,6 @@ public class AllMenu_Fragment extends Fragment {
                                     e.printStackTrace();
                                 }
                             }
-//                            Log.d("lll", "onResponse: "+history_waits.get(0).toString());
                         }
                     }
 

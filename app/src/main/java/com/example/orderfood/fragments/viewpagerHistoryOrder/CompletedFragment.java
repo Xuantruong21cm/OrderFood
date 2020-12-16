@@ -33,7 +33,6 @@ public class CompletedFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_completed, container, false);
         unitUI(view);
-        AndroidNetworking.initialize(getActivity().getApplicationContext(), RequestSetup.okHttpClient);
         getData();
         return view ;
     }

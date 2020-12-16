@@ -1,66 +1,82 @@
 package com.example.orderfood.fragments;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.orderfood.R;
+import com.example.orderfood.activities.LoginActivity;
+import com.example.orderfood.fragments.viewpagerHistoryOrder.HistoryOrder_Fragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link User_Fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class User_Fragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public User_Fragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment User_Fragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static User_Fragment newInstance(String param1, String param2) {
-        User_Fragment fragment = new User_Fragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    LinearLayout layout_history_order, layout_location,
+            layout_support , layout_logout ;
+    TextView tv_userName ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_, container, false);
+        initUI(view) ;
+        tv_userName.setText(LoginActivity.username);
+        initListener();
+
+        return view ;
+    }
+
+    private void initListener() {
+        layout_history_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager() ;
+                FragmentTransaction transaction = fragmentManager.beginTransaction() ;
+                Fragment fragment = new HistoryOrder_Fragment() ;
+                transaction.replace(R.id.fragment,fragment).commit() ;
+                transaction.addToBackStack(fragment.getClass().getSimpleName()) ;
+            }
+        });
+
+        layout_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()) ;
+                builder.setTitle("Đăng Xuất !!!") ;
+                builder.setMessage("Bạn Có Muốn Đăng Xuất Không ?") ;
+                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(getActivity(),LoginActivity.class) ;
+                        startActivity(intent);
+                        getActivity().finish();
+                    }
+                });
+                builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                builder.show();
+            }
+        });
+    }
+
+    private void initUI(View view) {
+        layout_history_order = view.findViewById(R.id.layout_history_order) ;
+        layout_location = view.findViewById(R.id.layout_location) ;
+        layout_support = view.findViewById(R.id.layout_support) ;
+        layout_logout = view.findViewById(R.id.layout_logout) ;
+        tv_userName = view.findViewById(R.id.tv_userName) ;
     }
 }
