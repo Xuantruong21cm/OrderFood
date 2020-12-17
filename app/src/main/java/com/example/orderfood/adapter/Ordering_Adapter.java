@@ -13,6 +13,7 @@ import com.example.orderfood.R;
 import com.example.orderfood.interfaces.Detail_Order;
 import com.example.orderfood.models.History_Wait;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class Ordering_Adapter extends RecyclerView.Adapter<Ordering_Adapter.ViewHolder>{
@@ -40,7 +41,8 @@ public class Ordering_Adapter extends RecyclerView.Adapter<Ordering_Adapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         History_Wait history_wait = list.get(position) ;
         holder.tv_count_dishes.setText(String.valueOf(list.get(position).getDish().size()));
-        holder.tv_cost_orderhistory.setText(String.valueOf(history_wait.getMoney())+ " đ");
+        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+        holder.tv_cost_orderhistory.setText(decimalFormat.format(history_wait.getMoney())+ " đ");
         holder.tv_time_orderhistory.setText(history_wait.getTime());
         holder.btn_details_order.setOnClickListener(new View.OnClickListener() {
             @Override

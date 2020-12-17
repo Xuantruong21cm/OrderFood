@@ -43,6 +43,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,9 +54,9 @@ public class ListOrder_Fragment extends Fragment {
     ListOrder_Adapter adapter;
     int cost = 0;
     List<String> listTime;
-    List<String> id ;
+    List<String> id;
     Dialog dialog;
-    ProgressBar progress_listOrder ;
+    ProgressBar progress_listOrder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,14 +86,17 @@ public class ListOrder_Fragment extends Fragment {
         for (int i = 0; i < MainActivity.listDishes.size(); i++) {
             cost += MainActivity.listDishes.get(i).getCost();
         }
-        tv_cost_listOrder.setText("Tổng Tiền: " + cost);
+        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+        tv_cost_listOrder.setText("Tổng Tiền: " + decimalFormat.format(cost));
 
         adapter.deleteItem(new ListOrder_Adapter.ItemListOrderListener() {
             @Override
             public void delete(int position) {
+                cost -= MainActivity.listDishes.get(position).getCost();
                 MainActivity.listDishes.remove(position);
                 adapter.notifyItemRemoved(position);
                 adapter.notifyDataSetChanged();
+                tv_cost_listOrder.setText("Tổng Tiền: " + decimalFormat.format(cost));
                 if (MainActivity.listDishes.size() <= 0) {
                     tv_empty_listorder.setVisibility(View.VISIBLE);
                     recyclerView_listOrder.setVisibility(View.INVISIBLE);
@@ -126,53 +130,54 @@ public class ListOrder_Fragment extends Fragment {
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         Log.d("idTime", "onItemClick: " + listTime.get(i));
                         dialog.dismiss();
-                        Dialog people = new Dialog(getActivity()) ;
+                        Dialog people = new Dialog(getActivity());
                         people.setContentView(R.layout.dialog_people);
                         people.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, 1800);
                         people.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                         people.getWindow().setGravity(Gravity.CENTER);
-                        EditText edt_number_people = people.findViewById(R.id.edt_number_people) ;
-                        TextView btn_submit_people = people.findViewById(R.id.btn_submit_people) ;
+                        EditText edt_number_people = people.findViewById(R.id.edt_number_people);
+                        TextView btn_submit_people = people.findViewById(R.id.btn_submit_people);
 
                         btn_submit_people.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                String number = edt_number_people.getText().toString().trim() ;
-                                if (number.isEmpty() || Integer.parseInt(number) <=0){
-                                    Toast.makeText(getContext(),"Số Người Tối Thiểu Phải Là 1",Toast.LENGTH_SHORT).show();
-                                }else {
+                                String number = edt_number_people.getText().toString().trim();
+                                if (number.isEmpty() || Integer.parseInt(number) <= 0) {
+                                    Toast.makeText(getContext(), "Số Người Tối Thiểu Phải Là 1", Toast.LENGTH_SHORT).show();
+                                } else {
                                     progress_listOrder.setVisibility(View.VISIBLE);
-                                    String Time = listTime.get(i) ;
+                                    String Time = listTime.get(i);
                                     JSONArray jsonArray = new JSONArray();
-                                    for (int j = 0; j < MainActivity.listDishes.size() ; j++) {
+                                    for (int j = 0; j < MainActivity.listDishes.size(); j++) {
                                         JSONObject jsonObject = new JSONObject();
                                         try {
-                                            jsonObject.put("imageDish",MainActivity.listDishes.get(j).getImageDish());
-                                            jsonObject.put("nameDish",MainActivity.listDishes.get(j).getNameDish());
-                                            jsonObject.put("amount",MainActivity.listDishes.get(j).getCount()) ;
-                                        }catch (Exception e){}
-                                        jsonArray.put(jsonObject) ;
+                                            jsonObject.put("imageDish", MainActivity.listDishes.get(j).getImageDish());
+                                            jsonObject.put("nameDish", MainActivity.listDishes.get(j).getNameDish());
+                                            jsonObject.put("amount", MainActivity.listDishes.get(j).getCount());
+                                        } catch (Exception e) {
+                                        }
+                                        jsonArray.put(jsonObject);
                                     }
-                                    AndroidNetworking.post(BaseUrl.baseUrl+BaseUrl.bookDish)
+                                    AndroidNetworking.post(BaseUrl.baseUrl + BaseUrl.bookDish)
                                             .addUrlEncodeFormBodyParameter("iduser", LoginActivity.id)
-                                            .addUrlEncodeFormBodyParameter("time",Time)
-                                            .addUrlEncodeFormBodyParameter("people",number)
-                                            .addUrlEncodeFormBodyParameter("listdist",jsonArray.toString())
-                                            .addUrlEncodeFormBodyParameter("money",String.valueOf(cost))
-                                            .addUrlEncodeFormBodyParameter("status","1")
+                                            .addUrlEncodeFormBodyParameter("time", Time)
+                                            .addUrlEncodeFormBodyParameter("people", number)
+                                            .addUrlEncodeFormBodyParameter("listdist", jsonArray.toString())
+                                            .addUrlEncodeFormBodyParameter("money", String.valueOf(cost))
+                                            .addUrlEncodeFormBodyParameter("status", "1")
                                             .setPriority(Priority.HIGH)
                                             .build()
                                             .getAsString(new StringRequestListener() {
                                                 @Override
                                                 public void onResponse(String response) {
-                                                    Log.d("datban", "onResponse: "+response);
+                                                    Log.d("datban", "onResponse: " + response);
                                                     MainActivity.listDishes.clear();
                                                     progress_listOrder.setVisibility(View.GONE);
-                                                    Intent intent = new Intent(getContext(),MainActivity.class);
+                                                    Intent intent = new Intent(getContext(), MainActivity.class);
                                                     startActivity(intent);
                                                     people.dismiss();
                                                     AllMenu_Fragment.getHistory();
-                                                    Toast.makeText(getContext(),"Đặt Bàn Thành Công",Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(getContext(), "Đặt Bàn Thành Công", Toast.LENGTH_SHORT).show();
                                                 }
 
                                                 @Override
@@ -224,10 +229,10 @@ public class ListOrder_Fragment extends Fragment {
         tv_cost_listOrder = view.findViewById(R.id.tv_costDish_listOrder);
         btn_submit_listOrder = view.findViewById(R.id.btn_submit_listOrder);
         tv_empty_listorder = view.findViewById(R.id.tv_empty_listorder);
-        progress_listOrder = view.findViewById(R.id.progress_listOrder) ;
+        progress_listOrder = view.findViewById(R.id.progress_listOrder);
 
         btn_submit_listOrder.setEnabled(false);
         listTime = new ArrayList<>();
-        id = new ArrayList<>() ;
+        id = new ArrayList<>();
     }
 }

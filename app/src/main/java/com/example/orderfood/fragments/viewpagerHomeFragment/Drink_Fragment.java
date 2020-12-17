@@ -37,6 +37,7 @@ import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -166,45 +167,45 @@ public class Drink_Fragment extends Fragment {
         params.height = screenHeight;
         parent.setLayoutParams(params);
         bottomSheetView(bottomSheetDialog);
-        cost = count * Integer.valueOf(food.getPrice());
-        Glide.with(getContext().getApplicationContext()).load(food.getImageDish()).into(img_imageDish_bottomsheet);
-        Log.d("imageda", "onClick: " + food.getImageDish());
-        tv_price_bottomsheet.setText(food.getPrice() + " đ");
+        cost = count * Integer.valueOf(food.getPrice()) ;
+        Glide.with(getContext()).load(food.getImageDish()).into(img_imageDish_bottomsheet);
+        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+        tv_price_bottomsheet.setText(decimalFormat.format(Double.parseDouble(food.getPrice())) + " đ");
         tv_time_bottomsheet.setText(food.getTime() + " phút");
         tv_kalo_bottomsheet.setText(food.getCalories() + "kalo");
         tv_weight_bottomsheet.setText(food.getWeight() + " gr");
         tv_ingredient_bottomsheet.setText("Thành Phần : " + food.getIngredient());
-        tv_total_bottomsheet.setText(String.valueOf(cost) + " đ");
+        tv_total_bottomsheet.setText(decimalFormat.format(cost) + " đ");
         tv_Amount_bottomsheet.setText(String.valueOf(count));
         btn_Minus_bottomsheet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (count < 1) {
-                    count = 0;
-                    cost = count * Integer.valueOf(food.getPrice());
+                if (count < 1 ){
+                    count = 0 ;
+                    cost = count * Integer.valueOf(food.getPrice()) ;
                     tv_Amount_bottomsheet.setText(String.valueOf(count));
-                    tv_total_bottomsheet.setText(String.valueOf(cost) + " đ");
-                } else {
-                    count--;
-                    cost = count * Integer.valueOf(food.getPrice());
+                    tv_total_bottomsheet.setText(decimalFormat.format(cost) + " đ");
+                }else {
+                    count -- ;
+                    cost = count * Integer.valueOf(food.getPrice()) ;
                     tv_Amount_bottomsheet.setText(String.valueOf(count));
-                    tv_total_bottomsheet.setText(String.valueOf(cost) + " đ");
+                    tv_total_bottomsheet.setText(decimalFormat.format(cost) + " đ");
                 }
             }
         });
         btn_Plus_bottomsheet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (count >= 10) {
-                    count = 10;
-                    cost = count * Integer.valueOf(food.getPrice());
+                if (count >= 10 ){
+                    count = 10 ;
+                    cost = count * Integer.valueOf(food.getPrice()) ;
                     tv_Amount_bottomsheet.setText(String.valueOf(count));
-                    tv_total_bottomsheet.setText(String.valueOf(cost) + " đ");
-                } else {
-                    count++;
-                    cost = count * Integer.valueOf(food.getPrice());
+                    tv_total_bottomsheet.setText(decimalFormat.format(cost) + " đ");
+                }else {
+                    count ++ ;
+                    cost = count * Integer.valueOf(food.getPrice()) ;
                     tv_Amount_bottomsheet.setText(String.valueOf(count));
-                    tv_total_bottomsheet.setText(String.valueOf(cost) + " đ");
+                    tv_total_bottomsheet.setText(decimalFormat.format(cost) + " đ");
                 }
             }
         });
@@ -212,12 +213,12 @@ public class Drink_Fragment extends Fragment {
         btn_add_bottomsheet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (count <= 0) {
-                    Toast.makeText(getContext(), R.string.minCount, Toast.LENGTH_SHORT).show();
-                } else {
-                    MainActivity.listDishes.add(new ListDish(food.getNameDish(), food.get_id(), count, cost, food.getPrice(), food.getImageDish()));
-                    Toast.makeText(getContext(), R.string.addish, Toast.LENGTH_SHORT).show();
-                    count = 0;
+                if (count <= 0){
+                    Toast.makeText(getContext(),R.string.minCount,Toast.LENGTH_SHORT).show();
+                }else {
+                    MainActivity.listDishes.add(new ListDish(food.getNameDish(),food.get_id(),count,cost,food.getPrice(),food.getImageDish()));
+                    Toast.makeText(getContext(),R.string.addish,Toast.LENGTH_SHORT).show();
+                    count = 0 ;
                     bottomSheetDialog.dismiss();
                 }
             }

@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.example.orderfood.R;
 import com.example.orderfood.models.ListDish;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class ListOrder_Adapter extends RecyclerView.Adapter<ListOrder_Adapter.ViewHolder> {
@@ -43,8 +44,9 @@ public class ListOrder_Adapter extends RecyclerView.Adapter<ListOrder_Adapter.Vi
         Glide.with(context).load(listDish.getImageDish()).into(holder.img_imageDish_listOrder) ;
         holder.tv_nameDish_listOrder.setText(listDish.getNameDish());
         holder.tv_count_listOrder.setText("Số Lượng: "+listDish.getCount());
-        holder.tv_cost_listOrder.setText(listDish.getCost()+" đ");
-        holder.tv_price_listOrder.setText(listDish.getPrice());
+        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+        holder.tv_cost_listOrder.setText(decimalFormat.format(listDish.getCost())+" đ");
+        holder.tv_price_listOrder.setText(decimalFormat.format(Double.parseDouble(listDish.getPrice()))+" đ");
         holder.img_deleteItem_listOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

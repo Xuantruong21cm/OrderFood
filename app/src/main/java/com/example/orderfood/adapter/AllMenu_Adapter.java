@@ -15,6 +15,7 @@ import com.example.orderfood.interfaces.FoodOnClick;
 import com.example.orderfood.R;
 import com.example.orderfood.models.Food;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class AllMenu_Adapter extends RecyclerView.Adapter<AllMenu_Adapter.ViewHolder>{
@@ -43,7 +44,8 @@ public class AllMenu_Adapter extends RecyclerView.Adapter<AllMenu_Adapter.ViewHo
         Glide.with(context).asBitmap().load(food.getImageDish()).into(holder.img_imageDish) ;
         holder.tv_nameDish.setText(food.getNameDish());
         holder.tv_time.setText(food.getTime() + " phút");
-        holder.tv_price.setText(food.getPrice() + " đ");
+        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+        holder.tv_price.setText(decimalFormat.format(Double.parseDouble(food.getPrice())) +" đ");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,6 +57,11 @@ public class AllMenu_Adapter extends RecyclerView.Adapter<AllMenu_Adapter.ViewHo
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public void filterList(List<Food> listFilter) {
+        list = listFilter ;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

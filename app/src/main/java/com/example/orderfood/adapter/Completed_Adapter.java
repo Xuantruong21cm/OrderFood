@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.orderfood.R;
 import com.example.orderfood.models.History_Wait;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class Completed_Adapter extends RecyclerView.Adapter<Completed_Adapter.ViewHolder>{
@@ -34,7 +35,8 @@ public class Completed_Adapter extends RecyclerView.Adapter<Completed_Adapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         History_Wait history_wait = list.get(position) ;
         holder.tv_count_dishes_completed.setText(String.valueOf(list.get(position).getDish().size()));
-        holder.tv_cost_orderhistory_completed.setText(String.valueOf(history_wait.getMoney())+ " đ");
+        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+        holder.tv_cost_orderhistory_completed.setText(decimalFormat.format(history_wait.getMoney())+ " đ");
         holder.tv_time_orderhistory_completed.setText(history_wait.getTime());
     }
 
