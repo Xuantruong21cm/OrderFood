@@ -4,11 +4,21 @@ public class Hour {
     String _id ;
     String startingTime ;
     String endTime ;
+    int slot  ;
 
-    public Hour(String _id, String startingTime, String endTime) {
+    public Hour(String _id, String startingTime, String endTime,int slot) {
         this._id = _id;
         this.startingTime = startingTime;
         this.endTime = endTime;
+        this.slot = slot ;
+    }
+
+    public int getSlot() {
+        return slot;
+    }
+
+    public void setSlot(int slot) {
+        this.slot = slot;
     }
 
     public String get_id() {

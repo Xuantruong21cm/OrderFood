@@ -209,8 +209,10 @@ public class ListOrder_Fragment extends Fragment {
                     public void onResponse(ArrayList<Hour> response) {
                         listTime.clear();
                         for (int i = 0; i < response.size(); i++) {
-                            listTime.add(response.get(i).getStartingTime() + " - " + response.get(i).getEndTime());
-                            id.add(response.get(i).get_id());
+                            if (response.get(i).getSlot() != 0){
+                                listTime.add(response.get(i).getStartingTime() + " - " + response.get(i).getEndTime());
+                                id.add(response.get(i).get_id());
+                            }
                         }
                         progress_listOrder.setVisibility(View.GONE);
                         btn_submit_listOrder.setEnabled(true);

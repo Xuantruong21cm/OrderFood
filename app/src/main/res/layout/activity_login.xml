@@ -55,6 +55,14 @@
             android:background="@drawable/custom_editext_login"
             android:hint="@string/password"
             android:paddingLeft="@dimen/_8sdp" />
+        <CheckBox
+            android:id="@+id/cbk_remember"
+            android:text="Remember password ?"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <LinearLayout
             android:layout_width="match_parent"
