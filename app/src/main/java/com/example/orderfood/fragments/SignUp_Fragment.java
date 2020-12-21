@@ -104,6 +104,7 @@ public class SignUp_Fragment extends Fragment {
 
                                                             @Override
                                                             public void onVerificationFailed(@NonNull FirebaseException e) {
+                                                                Log.d("erro", "Erro: "+e.getMessage());
                                                                 Toast.makeText(getContext(),R.string.erroPhone,Toast.LENGTH_SHORT).show();
                                                             }
 

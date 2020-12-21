@@ -19,11 +19,16 @@
             android:background="#FF7B01"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_38sdp"/>
-        <androidx.recyclerview.widget.RecyclerView
-            tools:listitem="@layout/item_notification"
-            android:id="@+id/recyclerView_notification"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/SwipeRefreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                tools:listitem="@layout/item_notification"
+                android:id="@+id/recyclerView_notification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </LinearLayout>
 
 </FrameLayout>

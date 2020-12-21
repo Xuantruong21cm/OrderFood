@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.example.orderfood.R;
 import com.example.orderfood.adapter.HomeViewPagerAdapter;
+import com.example.orderfood.fragments.viewpagerHistoryOrder.CompletedFragment;
 import com.example.orderfood.fragments.viewpagerHistoryOrder.HistoryOrder_Fragment;
 import com.example.orderfood.fragments.viewpagerHomeFragment.AllMenu_Fragment;
 import com.example.orderfood.models.Food;

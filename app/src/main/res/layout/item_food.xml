@@ -41,7 +41,7 @@
             android:layout_weight="1">
 
             <TextView
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:textColor="#DD252525"
                 android:textStyle="bold"
                 tools:text ="Nước ép dưa hấu"

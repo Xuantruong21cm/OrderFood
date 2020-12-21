@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,6 +34,7 @@ public class Notification_Fragment extends Fragment {
     public static List<Notification> list;
     Notification_Adapter adapter ;
     RecyclerView recyclerView_notification ;
+    SwipeRefreshLayout SwipeRefreshLayout ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,6 +42,7 @@ public class Notification_Fragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_notification_, container, false);
         recyclerView_notification = view.findViewById(R.id.recyclerView_notification) ;
+        SwipeRefreshLayout = view.findViewById(R.id.SwipeRefreshLayout) ;
         if (list != null) {
             if (list.size() <= 0) {
                 getNotification();
@@ -54,6 +57,15 @@ public class Notification_Fragment extends Fragment {
             list = new ArrayList<>();
             getNotification();
         }
+
+        SwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                list.clear();
+                getNotification();
+                SwipeRefreshLayout.setRefreshing(false );
+            }
+        });
         return view;
     }
 

@@ -35,6 +35,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
         Notification notification = list.get(position) ;
         holder.tv_title.setText(notification.getTitle());
         holder.tv_content.setText(notification.getContent());
+        holder.tv_time_notification.setText(notification.getDate());
     }
 
     @Override
@@ -43,11 +44,12 @@ public class Notification_Adapter extends RecyclerView.Adapter<Notification_Adap
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView tv_title, tv_content ;
+        TextView tv_title, tv_content ,tv_time_notification;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_title = itemView.findViewById(R.id.tv_title) ;
             tv_content = itemView.findViewById(R.id.tv_content) ;
+            tv_time_notification = itemView.findViewById(R.id.tv_time_notification) ;
         }
     }
 }

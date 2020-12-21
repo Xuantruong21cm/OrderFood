@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.example.orderfood.R;
 import com.example.orderfood.adapter.Details_OrderAdapter;
+import com.example.orderfood.fragments.viewpagerHistoryOrder.CompletedFragment;
 import com.example.orderfood.fragments.viewpagerHistoryOrder.Ordering_Fragment;
 import com.example.orderfood.models.Dish;
 
@@ -27,6 +28,7 @@ public class Deltails_Order extends Fragment {
     int amount ;
     String imageDish ;
     String imageName ;
+    int price  ;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,11 +47,23 @@ public class Deltails_Order extends Fragment {
         list = new ArrayList<>();
         if (bundle != null){
             int potision = bundle.getInt("position") ;
-            for (int i = 0; i <Ordering_Fragment.list.get(potision).getDish().size() ; i++) {
-                amount = Ordering_Fragment.list.get(potision).getDish().get(i).getAmount();
-                imageDish = Ordering_Fragment.list.get(potision).getDish().get(i).getImageDish();
-                imageName = Ordering_Fragment.list.get(potision).getDish().get(i).getNameDish();
-                list.add(new Dish(null,imageDish,imageName,amount)) ;
+            String fragment = bundle.getString("fragment") ;
+            if (fragment.equals("ordering")){
+                for (int i = 0; i <Ordering_Fragment.list.get(potision).getDish().size() ; i++) {
+                    amount = Ordering_Fragment.list.get(potision).getDish().get(i).getAmount();
+                    imageDish = Ordering_Fragment.list.get(potision).getDish().get(i).getImageDish();
+                    imageName = Ordering_Fragment.list.get(potision).getDish().get(i).getNameDish();
+                    price = Ordering_Fragment.list.get(potision).getDish().get(i).getPrice();
+                    list.add(new Dish(null,imageDish,imageName,amount,price)) ;
+                }
+            }else if (fragment.equals("completed")){
+                for (int i = 0; i < CompletedFragment.list.get(potision).getDish().size() ; i++) {
+                    amount = CompletedFragment.list.get(potision).getDish().get(i).getAmount();
+                    imageDish = CompletedFragment.list.get(potision).getDish().get(i).getImageDish();
+                    imageName = CompletedFragment.list.get(potision).getDish().get(i).getNameDish();
+                    price = CompletedFragment.list.get(potision).getDish().get(i).getPrice();
+                    list.add(new Dish(null,imageDish,imageName,amount,price)) ;
+                }
             }
         }
     }

@@ -73,6 +73,7 @@ public class Ordering_Fragment extends Fragment {
                 FragmentTransaction transaction = fragmentManager.beginTransaction() ;
                 Bundle bundle = new Bundle();
                 bundle.putInt("position",position);
+                bundle.putString("fragment","ordering");
                 Fragment fragment = new Deltails_Order();
                 fragment.setArguments(bundle);
                 transaction.replace(R.id.fragment,fragment).commit() ;

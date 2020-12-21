@@ -25,6 +25,26 @@
         android:textSize="@dimen/_14sdp"
         android:textStyle="bold"
         tools:text="Đã xác nhận thanh toán" />
+    <LinearLayout
+        android:padding="@dimen/_2sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/clock"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"/>
+        <TextView
+            android:textColor="#403F3F"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="bold"
+            android:gravity="center|left"
+            tools:text="2020-12-20"
+            android:paddingStart="@dimen/_8sdp"
+            android:id="@+id/tv_time_notification"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
     <View
         android:layout_marginTop="@dimen/_6sdp"
         android:background="#5A5A5A"

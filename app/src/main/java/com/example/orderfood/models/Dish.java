@@ -5,12 +5,22 @@ public class Dish {
     public String imageDish ;
     public String nameDish ;
     public int amount ;
+    public int money ;
 
-    public Dish(String _id, String imageDish, String nameDish, int amount) {
+    public Dish(String _id, String imageDish, String nameDish, int amount,int money) {
         this._id = _id;
         this.imageDish = imageDish;
         this.nameDish = nameDish;
         this.amount = amount;
+        this.money = money;
+    }
+
+    public int getPrice() {
+        return money;
+    }
+
+    public void setPrice(int price) {
+        this.money = price;
     }
 
     public String get_id() {

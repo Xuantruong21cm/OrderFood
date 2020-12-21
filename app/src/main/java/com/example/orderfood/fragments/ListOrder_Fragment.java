@@ -34,6 +34,8 @@ import com.example.orderfood.R;
 import com.example.orderfood.activities.LoginActivity;
 import com.example.orderfood.activities.MainActivity;
 import com.example.orderfood.adapter.ListOrder_Adapter;
+import com.example.orderfood.fragments.viewpagerHistoryOrder.CompletedFragment;
+import com.example.orderfood.fragments.viewpagerHistoryOrder.Ordering_Fragment;
 import com.example.orderfood.fragments.viewpagerHomeFragment.AllMenu_Fragment;
 import com.example.orderfood.models.Hour;
 import com.example.orderfood.ultils.BaseUrl;
@@ -49,7 +51,6 @@ import java.util.List;
 
 public class ListOrder_Fragment extends Fragment {
     RecyclerView recyclerView_listOrder;
-    ImageView img_add_ListOder;
     TextView tv_cost_listOrder, btn_submit_listOrder, tv_empty_listorder;
     ListOrder_Adapter adapter;
     int cost = 0;
@@ -68,13 +69,11 @@ public class ListOrder_Fragment extends Fragment {
         if (MainActivity.listDishes.size() <= 0) {
             tv_empty_listorder.setVisibility(View.VISIBLE);
             recyclerView_listOrder.setVisibility(View.INVISIBLE);
-            img_add_ListOder.setVisibility(View.INVISIBLE);
             tv_cost_listOrder.setVisibility(View.INVISIBLE);
             btn_submit_listOrder.setVisibility(View.INVISIBLE);
         } else {
             tv_empty_listorder.setVisibility(View.INVISIBLE);
             recyclerView_listOrder.setVisibility(View.VISIBLE);
-            img_add_ListOder.setVisibility(View.VISIBLE);
             tv_cost_listOrder.setVisibility(View.VISIBLE);
             btn_submit_listOrder.setVisibility(View.VISIBLE);
         }
@@ -100,13 +99,11 @@ public class ListOrder_Fragment extends Fragment {
                 if (MainActivity.listDishes.size() <= 0) {
                     tv_empty_listorder.setVisibility(View.VISIBLE);
                     recyclerView_listOrder.setVisibility(View.INVISIBLE);
-                    img_add_ListOder.setVisibility(View.INVISIBLE);
                     tv_cost_listOrder.setVisibility(View.INVISIBLE);
                     btn_submit_listOrder.setVisibility(View.INVISIBLE);
                 } else {
                     tv_empty_listorder.setVisibility(View.INVISIBLE);
                     recyclerView_listOrder.setVisibility(View.VISIBLE);
-                    img_add_ListOder.setVisibility(View.VISIBLE);
                     tv_cost_listOrder.setVisibility(View.VISIBLE);
                     btn_submit_listOrder.setVisibility(View.VISIBLE);
                 }
@@ -154,6 +151,7 @@ public class ListOrder_Fragment extends Fragment {
                                             jsonObject.put("imageDish", MainActivity.listDishes.get(j).getImageDish());
                                             jsonObject.put("nameDish", MainActivity.listDishes.get(j).getNameDish());
                                             jsonObject.put("amount", MainActivity.listDishes.get(j).getCount());
+                                            jsonObject.put("money", MainActivity.listDishes.get(j).getPrice());
                                         } catch (Exception e) {
                                         }
                                         jsonArray.put(jsonObject);
@@ -172,11 +170,12 @@ public class ListOrder_Fragment extends Fragment {
                                                 public void onResponse(String response) {
                                                     Log.d("datban", "onResponse: " + response);
                                                     MainActivity.listDishes.clear();
+                                                    AllMenu_Fragment.history_waits.clear();
                                                     progress_listOrder.setVisibility(View.GONE);
                                                     Intent intent = new Intent(getContext(), MainActivity.class);
                                                     startActivity(intent);
                                                     people.dismiss();
-                                                    AllMenu_Fragment.getHistory();
+                                                  // AllMenu_Fragment.getHistory();
                                                     Toast.makeText(getContext(), "Đặt Bàn Thành Công", Toast.LENGTH_SHORT).show();
                                                 }
 
@@ -227,7 +226,6 @@ public class ListOrder_Fragment extends Fragment {
 
     private void initUI(View view) {
         recyclerView_listOrder = view.findViewById(R.id.recyclerView_listOrder);
-        img_add_ListOder = view.findViewById(R.id.img_add_ListOder);
         tv_cost_listOrder = view.findViewById(R.id.tv_costDish_listOrder);
         btn_submit_listOrder = view.findViewById(R.id.btn_submit_listOrder);
         tv_empty_listorder = view.findViewById(R.id.tv_empty_listorder);
